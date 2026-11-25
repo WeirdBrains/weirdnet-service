@@ -1,0 +1,49 @@
+[package]
+name = "weirdnet-service"
+version = "0.0.0"
+edition = "2024"
+rust-version = "1.99"
+description = "Weirdnet service framework: typed request/response services behind an Authorize hook, live topic feeds with snapshot-then-deltas, resume and backpressure, versioned protocol ids, and a Server and Client over weirdnet-net."
+authors = ["Weird Brains LLC"]
+license = "BSD-3-Clause"
+repository = "https://github.com/WeirdBrains/weirdnet-service"
+documentation = "https://docs.rs/weirdnet-service"
+readme = "README.md"
+keywords = ["weirdnet", "rpc", "p2p", "pubsub", "authorization"]
+categories = ["asynchronous", "network-programming"]
+include = ["src/**", "docs/**", "README.md", "CHANGELOG.md", "LICENSE"]
+
+[features]
+default = ["net"]
+# Server, NetDialer and stream channels over weirdnet-net.
+net = ["dep:weirdnet-net", "dep:futures"]
+# RosterAuth: the user's linked devices and their device-role grants (weirdnet-sync roster).
+roster = ["net", "dep:weirdnet-sync"]
+# MembershipAuth: owner-signed memberships checked with weirdnet-access enforce::decide.
+access = ["net", "dep:weirdnet-access"]
+
+[dependencies]
+async-trait = "0.1"
+cbor4ii = { version = "1.2", features = ["serde1", "use_std"] }
+serde = { version = "1", features = ["derive"] }
+serde_bytes = "0.11"
+thiserror = "2"
+tokio = { version = "1", features = ["sync", "time", "rt", "macros"] }
+futures = { version = "0.3", optional = true }
+weirdnet-net = { version = "0.8.2", optional = true }
+weirdnet-sync = { version = "0.8", optional = true }
+weirdnet-access = { version = "0.1.2", optional = true }
+
+[dev-dependencies]
+futures = "0.3"
+weirdnet-access = "0.1.2"
+weirdnet-net = "0.8.2"
+weirdnet-sync = "0.8"
+tokio = { version = "1", features = ["sync", "time", "rt", "rt-multi-thread", "macros"] }
+
+[[test]]
+name = "net"
+required-features = ["roster", "access"]
+
+[package.metadata.docs.rs]
+all-features = true
