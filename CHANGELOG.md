@@ -6,6 +6,8 @@ All notable changes to this crate are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-11-25
+
 ### Added
 
 - `Service` trait for typed request/response services, and sessions with concurrent,

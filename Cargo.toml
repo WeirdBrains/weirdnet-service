@@ -1,6 +1,6 @@
 [package]
 name = "weirdnet-service"
-version = "0.0.0"
+version = "0.1.0"
 edition = "2024"
 rust-version = "1.99"
 description = "Weirdnet service framework: typed request/response services behind an Authorize hook, live topic feeds with snapshot-then-deltas, resume and backpressure, versioned protocol ids, and a Server and Client over weirdnet-net."
